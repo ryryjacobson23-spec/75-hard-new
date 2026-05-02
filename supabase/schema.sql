@@ -1,6 +1,3 @@
--- Enable RLS
-alter table auth.users enable row level security;
-
 -- program_settings
 create table if not exists public.program_settings (
   user_id uuid references auth.users(id) on delete cascade primary key,
