@@ -61,7 +61,7 @@ export default function WorkoutLogger() {
           duration_minutes: duration ? parseInt(duration) : null,
         })
         .select()
-        .single();
+        .maybeSingle();
 
       if (sessionErr) throw sessionErr;
 
@@ -87,7 +87,7 @@ export default function WorkoutLogger() {
         .select('id')
         .eq('user_id', user.id)
         .eq('date', today)
-        .single();
+        .maybeSingle();
 
       if (existing.data) {
         await supabase

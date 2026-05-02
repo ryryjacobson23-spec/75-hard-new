@@ -17,7 +17,7 @@ export default function Settings() {
       .from('program_settings')
       .select('*')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
     if (data) {
       setStartDate(data.start_date || '');
       setBodyweight(data.bodyweight_lbs ? String(data.bodyweight_lbs) : '');

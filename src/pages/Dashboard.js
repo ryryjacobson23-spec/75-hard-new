@@ -23,7 +23,7 @@ const CHECKLIST_ITEMS = [
   },
   {
     key: 'active_done',
-    liftLabel: 'Cardio finisher done',
+    liftLabel: () => 'Cardio finisher done',
     activeLabel: 'Active session done',
     color: '#5af5e8',
     icon: RunIcon,
@@ -31,7 +31,7 @@ const CHECKLIST_ITEMS = [
   },
   {
     key: 'ate_clean',
-    liftLabel: 'Ate clean + hit protein',
+    liftLabel: () => 'Ate clean + hit protein',
     activeLabel: 'Ate clean + hit protein',
     color: '#f5a85a',
     icon: FoodIcon,
@@ -39,7 +39,7 @@ const CHECKLIST_ITEMS = [
   },
   {
     key: 'drank_water',
-    liftLabel: '1 gallon of water',
+    liftLabel: () => '1 gallon of water',
     activeLabel: '1 gallon of water',
     color: '#5af5e8',
     icon: WaterIcon,
@@ -47,7 +47,7 @@ const CHECKLIST_ITEMS = [
   },
   {
     key: 'code_session',
-    liftLabel: 'Claude Code session (30+ min)',
+    liftLabel: () => 'Claude Code session (30+ min)',
     activeLabel: 'Claude Code session (30+ min)',
     color: '#b05af5',
     icon: CodeIcon,
@@ -71,8 +71,8 @@ export default function Dashboard() {
     if (!user) return;
 
     const [settingsRes, checklistRes, allChecklistRes, workoutsRes] = await Promise.all([
-      supabase.from('program_settings').select('*').eq('user_id', user.id).single(),
-      supabase.from('daily_checklist').select('*').eq('user_id', user.id).eq('date', today).single(),
+      supabase.from('program_settings').select('*').eq('user_id', user.id).maybeSingle(),
+      supabase.from('daily_checklist').select('*').eq('user_id', user.id).eq('date', today).maybeSingle(),
       supabase.from('daily_checklist').select('*').eq('user_id', user.id).order('date', { ascending: false }),
       supabase.from('workout_sessions').select('id, date').eq('user_id', user.id),
     ]);
