@@ -230,7 +230,8 @@ export default function Dashboard() {
         <div>
           {CHECKLIST_ITEMS.map((item, i) => {
             if (item.key === 'lifted' && !todayWorkout?.isLift) return null;
-            const label = todayWorkout?.isLift ? item.liftLabel(todayWorkout) : item.activeLabel;
+            const rawLabel = todayWorkout?.isLift ? item.liftLabel : item.activeLabel;
+            const label = typeof rawLabel === 'function' ? rawLabel(todayWorkout) : rawLabel;
             const checked = checklist[item.key];
             const Icon = item.icon;
 

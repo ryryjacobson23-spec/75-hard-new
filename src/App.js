@@ -8,6 +8,7 @@ import Progress from './pages/Progress';
 import History from './pages/History';
 import Settings from './pages/Settings';
 import Nav from './components/Nav';
+import ErrorBoundary from './components/ErrorBoundary';
 
 function AppRoutes() {
   const { user, loading } = useAuth();
@@ -24,14 +25,16 @@ function AppRoutes() {
 
   return (
     <div className="min-h-screen bg-bg">
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/log" element={<WorkoutLogger />} />
-        <Route path="/progress" element={<Progress />} />
-        <Route path="/history" element={<History />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <ErrorBoundary>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/log" element={<WorkoutLogger />} />
+          <Route path="/progress" element={<Progress />} />
+          <Route path="/history" element={<History />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </ErrorBoundary>
       <Nav />
     </div>
   );
